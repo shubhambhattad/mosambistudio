@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mosambi Studios — Pune's Full-Stack Marketing Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#050505;--bg1:#0a0a0a;--bg2:#111;--bg3:#161616;--bg4:#1c1c1c;
+  --w:#fff;--gray:#888;--gray2:#555;--gray3:#333;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);--border3:rgba(255,255,255,.24);
+  --glass:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.07);
+  --r:20px;--r2:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Onest',system-ui,-apple-system,'Helvetica Neue',sans-serif;background:var(--bg);color:#fff;overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#000}::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/* NOISE */
+body::before{content:'';position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:13px 26px;font-size:15px;font-weight:600;border:none;cursor:pointer;font-family:'Onest',sans-serif;transition:all .28s cubic-bezier(.25,.1,.25,1);letter-spacing:-.01em;white-space:nowrap}
+.btn-w{background:#fff;color:#000}.btn-w:hover{background:rgba(255,255,255,.88);transform:translateY(-1px)}
+.btn-ol{background:transparent;color:#fff;border:1px solid var(--border3)}.btn-ol:hover{background:var(--glass2)}
+.btn-sm{padding:10px 20px;font-size:13px}
+.btn svg{flex-shrink:0;transition:transform .28s}.btn:hover svg{transform:translateX(2px)}
+
+/* LAYOUT */
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.section{padding:clamp(80px,9vh,130px) 0}
+.sec-sm{padding:clamp(56px,6vh,90px) 0}
+.divider{border-top:1px solid var(--border)}
+
+/* ══ NAVBAR — PILL (NinjaPromo style) ══ */
+#nav-outer{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:center;padding:16px 20px;pointer-events:none}
+#nav{pointer-events:all;background:rgba(255,255,255,.97);border-radius:999px;display:flex;align-items:center;padding:8px 8px 8px 22px;gap:0;max-width:1140px;width:100%;box-shadow:0 2px 40px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.08);backdrop-filter:blur(20px);transition:max-width .4s,padding .4s}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-right:4px;text-decoration:none}
+.nav-badge{width:34px;height:34px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;color:#fff;flex-shrink:0}
+.nav-name{font-weight:800;font-size:15px;color:#000;letter-spacing:-.025em;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:2px;flex:1;margin-left:16px}
+.nav-link{background:none;border:none;padding:9px 15px;font-size:14px;font-weight:600;color:#111;border-radius:999px;transition:background .2s;white-space:nowrap;cursor:pointer;display:flex;align-items:center;gap:4px;font-family:'Onest',sans-serif}
+.nav-link:hover{background:rgba(0,0,0,.07)}
+.nav-link.dd::after{content:"▾";font-size:10px;opacity:.45}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.nav-clock{padding:7px 14px;border-radius:999px;background:rgba(0,0,0,.06);font-size:12px;font-weight:600;color:#333;letter-spacing:.02em}
+.nav-cta{background:#000;color:#fff;border-radius:999px;padding:11px 22px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all .25s;white-space:nowrap;font-family:'Onest',sans-serif;letter-spacing:-.01em}
+.nav-cta:hover{background:#222;transform:scale(1.02)}
+#mob-btn{display:none;width:36px;height:36px;border-radius:50%;background:#000;border:none;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+@media(max-width:900px){.nav-links,.nav-clock{display:none}#mob-btn{display:flex}}
+/* Mobile sheet */
+#mob-menu{position:fixed;inset:0;z-index:999;background:#000;flex-direction:column;align-items:center;justify-content:center;gap:4px;display:none}
+#mob-menu.open{display:flex}
+.mob-lnk{all:unset;cursor:pointer;font-size:28px;font-weight:800;color:#fff;padding:12px 0;letter-spacing:-.04em;opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s}
+#mob-menu.open .mob-lnk{opacity:1;transform:translateY(0)}
+#mob-menu.open .mob-lnk:nth-child(2){transition-delay:.05s}
+#mob-menu.open .mob-lnk:nth-child(3){transition-delay:.1s}
+#mob-menu.open .mob-lnk:nth-child(4){transition-delay:.15s}
+#mob-menu.open .mob-lnk:nth-child(5){transition-delay:.2s}
+#mob-menu.open .mob-lnk:nth-child(6){transition-delay:.25s}
+#mob-x{position:absolute;top:24px;right:24px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff}
+
+/* ══ HERO ══ */
+#hero{min-height:100vh;display:flex;align-items:flex-end;position:relative;overflow:hidden;background:#000;padding-top:100px}
+.hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,.042) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.042) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 90% 90% at 50% 30%,#000 30%,transparent 100%);animation:gShift 20s ease-in-out infinite alternate}
+@keyframes gShift{from{background-position:0 0}to{background-position:36px 36px}}
+.hglow{position:absolute;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;animation:gPulse 8s ease-in-out infinite alternate}
+.hg1{width:700px;height:700px;background:rgba(255,255,255,.035);top:-250px;left:-150px}
+.hg2{width:500px;height:500px;background:rgba(255,255,255,.025);bottom:-100px;right:-80px;animation-delay:-4s}
+@keyframes gPulse{from{opacity:.6;transform:scale(1)}to{opacity:1;transform:scale(1.1)}}
+.hero-content{position:relative;z-index:2;padding:0 clamp(20px,4vw,56px) clamp(60px,8vh,100px);max-width:1280px;margin:0 auto;width:100%}
+.hero-ey{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.ey-dot{width:7px;height:7px;border-radius:50%;background:#fff;opacity:.55;animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.55}50%{opacity:.15}}
+.ey-txt{font-size:13px;font-weight:600;color:var(--gray);letter-spacing:.1em;text-transform:uppercase}
+.hero-h1{font-size:clamp(3.4rem,9vw,8rem);font-weight:900;line-height:.97;letter-spacing:-.055em;margin-bottom:30px}
+.hero-h1 .ghost{-webkit-text-stroke:1.5px rgba(255,255,255,.22);color:transparent;display:block}
+.hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--gray);max-width:560px;line-height:1.7;font-weight:400;margin-bottom:44px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:48px}
+.hero-proof{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1px solid var(--border2);border-radius:14px;padding:13px 20px;backdrop-filter:blur(10px);width:fit-content}
+.av-st{display:flex}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid #000;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;background:linear-gradient(135deg,#222,#555)}
+.av:not(:first-child){margin-left:-9px}
+.proof-t{font-size:13px;color:var(--gray)}.proof-t strong{color:#fff}
+/* Hero stats strip */
+.hero-stats{display:flex;flex-wrap:wrap;gap:1px;border-top:1px solid var(--border);padding-top:clamp(24px,4vh,40px);margin-top:clamp(24px,4vh,40px)}
+.hs{flex:1 1 150px;padding:16px 20px}
+.hs-n{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.hs-l{font-size:12px;color:var(--gray);margin-top:6px;font-weight:500}
+
+/* ══ TICKER ══ */
+.ticker-wrap{overflow:hidden;white-space:nowrap;padding:17px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg1)}
+.ticker-track{display:inline-block;animation:ticker 32s linear infinite}
+.ti{display:inline-block;font-size:13px;font-weight:600;color:var(--gray2);letter-spacing:.05em;text-transform:uppercase}
+.ts{display:inline-block;margin:0 24px;color:var(--gray3);font-size:10px}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══ STATS ROW ══ */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.sc{background:var(--bg1);padding:28px 22px;text-align:center;transition:background .3s}.sc:hover{background:var(--bg2)}
+.sc-n{font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.sc-l{font-size:12px;color:var(--gray);margin-top:8px;line-height:1.4;font-weight:500}
+
+/* ══ SECTION HEADER ══ */
+.sec-hdr{margin-bottom:clamp(44px,6vh,72px)}.sec-hdr.c{text-align:center;max-width:760px;margin-left:auto;margin-right:auto}
+.sec-tag{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border2);border-radius:999px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--gray);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.sec-tag-dot{width:5px;height:5px;border-radius:50%;background:#fff;opacity:.4}
+.h2{font-size:clamp(2.2rem,5vw,4.2rem);font-weight:900;line-height:1.04;letter-spacing:-.04em}
+.body-lg{font-size:clamp(15px,1.6vw,18px);color:var(--gray);line-height:1.7;font-weight:400}
+
+/* ══ PAIN POINTS ══ */
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2px;background:var(--border);border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.pc{background:var(--bg1);padding:32px 28px;position:relative;overflow:hidden;cursor:default;transition:background .3s}
+.pc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0% 100%,rgba(255,255,255,.03),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.pc:hover{background:var(--bg2)}.pc:hover::after{opacity:1}
+.pc-ico{width:44px;height:44px;border-radius:12px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:20px}
+.pc-tag{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray2);margin-bottom:8px}
+.pc-prob{font-size:15px;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:14px;font-style:italic;line-height:1.5}
+.pc-sol{font-size:13px;color:var(--gray);line-height:1.65}.pc-sol strong{color:rgba(255,255,255,.85)}
+
+/* ══ SERVICES CAROUSEL ══ */
+.svc-hdr{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(36px,5vh,56px)}
+.svc-outer{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 4%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 4%,#000 92%,transparent 100%)}
+.svc-car{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;padding:4px 0;-webkit-overflow-scrolling:touch}
+.svc-car::-webkit-scrollbar{display:none}
+.svc-car.drag{cursor:grabbing;user-select:none}
+.svc-slide{scroll-snap-align:start;flex-shrink:0;width:min(480px,80vw);background:var(--bg2);border:1px solid var(--border);border-radius:22px;padding:36px 32px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .3s,box-shadow .3s,transform .3s;min-height:320px}
+.svc-slide:hover{border-color:var(--border3);box-shadow:0 16px 48px rgba(0,0,0,.5);transform:translateY(-3px)}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:26px}
+.svc-ico{width:52px;height:52px;border-radius:14px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.svc-title{font-size:clamp(1.35rem,2.4vw,1.85rem);font-weight:800;letter-spacing:-.03em;margin-bottom:14px;line-height:1.1}
+.svc-desc{font-size:14px;color:var(--gray);line-height:1.65;flex:1;margin-bottom:24px}
+.svc-tags{display:flex;flex-wrap:wrap;gap:8px}
+.svc-tag{padding:6px 14px;border-radius:999px;background:var(--bg3);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--gray);transition:all .2s}
+.svc-tag:hover{border-color:var(--border3);color:#fff}
+.svc-ctrl{display:flex;align-items:center;gap:10px;margin-top:28px}
+.svc-arr{width:44px;height:44px;border-radius:50%;background:var(--bg2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;color:#fff}
+.svc-arr:hover{background:var(--bg3);border-color:var(--border3)}
+.svc-prog{flex:1;height:2px;background:var(--border);border-radius:1px;overflow:hidden}
+.svc-pb{height:100%;background:#fff;border-radius:1px;transition:width .3s;width:12%}
+
+/* ══ WHY US ══ */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:start}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr}}
+.why-items{display:flex;flex-direction:column;gap:14px}
+.wi{display:flex;gap:16px;padding:20px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg1);transition:all .3s;cursor:default}
+.wi:hover{border-color:var(--border3);background:var(--bg2);transform:translateX(6px)}
+.wi-ico{width:42px;height:42px;border-radius:12px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.wi-t{font-size:15px;font-weight:700;margin-bottom:5px}.wi-d{font-size:13px;color:var(--gray);line-height:1.6}
+.vs-table{border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.vs-h{display:grid;grid-template-columns:1.4fr 1fr 1fr;background:var(--bg2);padding:13px 20px;border-bottom:1px solid var(--border)}
+.vs-h span{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gray2)}.vs-h span:nth-child(2){text-align:center;color:#fff}
+.vs-r{display:grid;grid-template-columns:1.4fr 1fr 1fr;padding:13px 20px;border-bottom:1px solid var(--border);font-size:13px;transition:background .2s}
+.vs-r:last-child{border-bottom:none}.vs-r:hover{background:var(--bg2)}
+.vs-r span:nth-child(1){color:var(--gray)}.vs-r span:nth-child(2){text-align:center;color:#fff;font-weight:700}.vs-r span:nth-child(3){text-align:right;color:var(--gray3)}
+
+/* ══ STORIES ══ */
+.story-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px}
+@media(max-width:640px){.story-grid{grid-template-columns:1fr}}
+.story-card{border-radius:22px;overflow:hidden;border:1px solid var(--border);background:var(--bg1);transition:all .4s cubic-bezier(.25,.1,.25,1);cursor:default}
+.story-card:hover{transform:translateY(-6px);box-shadow:0 28px 72px rgba(0,0,0,.6);border-color:var(--border3)}
+.story-top{padding:32px 28px;position:relative;overflow:hidden;min-height:200px;display:flex;flex-direction:column;justify-content:flex-end}
+.story-num{position:absolute;top:-10px;right:10px;font-size:110px;font-weight:900;color:rgba(255,255,255,.033);letter-spacing:-.06em;line-height:1;user-select:none}
+.story-ind{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border2);border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:12px;letter-spacing:.04em;width:fit-content;backdrop-filter:blur(8px);background:rgba(255,255,255,.06)}
+.story-name{font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:900;letter-spacing:-.03em;margin-bottom:4px}
+.story-city{font-size:13px;color:var(--gray)}
+.story-bot{padding:22px 28px;border-top:1px solid var(--border)}
+.story-mets{display:flex;gap:20px;margin-bottom:14px;flex-wrap:wrap}
+.sm-v{font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:900;letter-spacing:-.03em;line-height:1}
+.sm-l{font-size:11px;color:var(--gray);margin-top:3px;font-weight:500}
+.story-desc{font-size:13px;color:var(--gray);line-height:1.65}
+
+/* ══ INDUSTRIES ══ */
+.ind-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.ind-tab{background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;transition:all .25s}
+.ind-tab.on,.ind-tab:hover{background:#fff;color:#000;border-color:#fff}
+.ind-panel{display:none;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;animation:fadeSl .35s ease}
+.ind-panel.on{display:grid}
+@keyframes fadeSl{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ind-card{padding:24px;border-radius:var(--r2);background:var(--bg1);border:1px solid var(--border);transition:all .3s}
+.ind-card:hover{border-color:var(--border3);background:var(--bg2);transform:translateY(-3px)}
+.ind-ct{font-size:15px;font-weight:700;margin-bottom:8px}.ind-cd{font-size:13px;color:var(--gray);line-height:1.6}
+
+/* ══ TEAM ══ */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+.team-card{padding:28px 20px;border-radius:var(--r);background:var(--bg1);border:1px solid var(--border);text-align:center;transition:all .35s;cursor:default}
+.team-card:hover{border-color:var(--border3);transform:translateY(-4px);background:var(--bg2)}
+.team-av{width:72px;height:72px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff;border:1.5px solid var(--border2)}
+.team-n{font-size:15px;font-weight:800;letter-spacing:-.02em;margin-bottom:3px}
+.team-r{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gray);margin-bottom:10px}
+.team-b{font-size:12px;color:var(--gray2);line-height:1.55}
+
+/* ══ TIMELINE ══ */
+.tl-outer{position:relative}
+.tl-line{position:absolute;left:11px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,#fff,transparent);opacity:.13}
+.tl-wrap{padding-left:40px}
+.tl-item{position:relative;margin-bottom:44px}.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-40px;top:3px;width:23px;height:23px;border-radius:50%;background:#fff;border:3px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#000;z-index:1}
+.tl-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border2);border-radius:999px;padding:3px 12px;font-size:11px;font-weight:700;color:var(--gray);margin-bottom:10px;letter-spacing:.04em}
+.tl-title{font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:900;letter-spacing:-.03em;margin-bottom:8px}
+.tl-desc{font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:14px}
+.tl-chips{display:flex;flex-wrap:wrap;gap:8px}
+.tl-chip{padding:5px 12px;border-radius:8px;background:var(--bg2);border:1px solid var(--border);font-size:12px;color:var(--gray);font-weight:500}
+
+/* ══ PRICING ══ */
+.price-tog-row{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:44px}
+.ptog-lbl{font-size:14px;font-weight:600;color:var(--gray)}
+.ptog{width:46px;height:25px;border-radius:999px;background:var(--bg3);border:1px solid var(--border2);position:relative;cursor:pointer;transition:background .3s}
+.ptog.on{background:#fff}
+.ptog-k{position:absolute;width:19px;height:19px;border-radius:50%;background:#555;top:2px;left:2px;transition:transform .3s,background .3s}
+.ptog.on .ptog-k{transform:translateX(21px);background:#000}
+.save-badge{border:1px solid var(--border2);border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--gray)}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;align-items:start}
+.pc2{padding:34px 28px;border-radius:22px;background:var(--bg1);border:1px solid var(--border);position:relative;transition:all .35s}
+.pc2:hover{border-color:var(--border3);transform:translateY(-4px)}
+.pc2.feat{background:var(--bg2);border-color:var(--border3)}
+.fbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#fff;color:#000;border-radius:999px;padding:4px 16px;font-size:12px;font-weight:800;white-space:nowrap;letter-spacing:.02em}
+.p-plan{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.p-amt{font-size:clamp(2rem,4vw,2.8rem);font-weight:900;letter-spacing:-.04em;line-height:1}
+.p-period{font-size:14px;color:var(--gray);margin-left:4px}
+.p-desc{font-size:13px;color:var(--gray);margin:14px 0 22px;line-height:1.6}
+.p-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.p-feats li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,.78);line-height:1.45}
+.p-feats li::before{content:'';width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid var(--border2);flex-shrink:0;margin-top:1px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23fff' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:8px}
+.p-dur{margin-top:22px;padding-top:18px;border-top:1px solid var(--border)}
+.p-dur-l{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gray2);margin-bottom:10px}
+.dtabs{display:flex;gap:6px;flex-wrap:wrap}
+.dtab{padding:6px 13px;border-radius:8px;background:var(--bg2);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;transition:all .22s}
+.dtab.on,.dtab:hover{background:rgba(255,255,255,.1);color:#fff;border-color:var(--border3)}
+
+/* ══ FAQ ══ */
+.faq-list{display:flex;flex-direction:column;gap:2px}
+.faq-item{border:1px solid var(--border);border-radius:var(--r2);background:var(--bg1);overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:var(--border3)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;cursor:pointer;gap:16px}
+.faq-qt{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.4}
+.faq-ico{width:28px;height:28px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;color:var(--gray)}
+.faq-item.open .faq-ico{background:rgba(255,255,255,.1);border-color:var(--border3);color:#fff;transform:rotate(45deg)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.25,.1,.25,1)}
+.faq-item.open .faq-body{max-height:280px}
+.faq-ans{padding:0 22px 20px;font-size:14px;color:var(--gray);line-height:1.75;border-top:1px solid var(--border);padding-top:16px}
+
+/* ══ CTA BAND ══ */
+.cta-band{border:1px solid var(--border2);border-radius:26px;padding:clamp(48px,8vh,80px) clamp(24px,5vw,72px);text-align:center;position:relative;overflow:hidden;background:linear-gradient(160deg,var(--bg2),var(--bg1))}
+.cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% -10%,rgba(255,255,255,.05),transparent 70%)}
+.cta-inner{position:relative;z-index:1}
+.cta-h2{font-size:clamp(2rem,5vw,3.8rem);font-weight:900;letter-spacing:-.04em;margin-bottom:18px}
+.cta-sub{font-size:17px;color:var(--gray);max-width:540px;margin:0 auto 36px;line-height:1.7;font-weight:400}
+.cta-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.cta-trust{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:28px}
+.cta-ti{font-size:13px;color:var(--gray2);display:flex;align-items:center;gap:6px}
+
+/* ══ FOOTER ══ */
+footer{background:var(--bg1);border-top:1px solid var(--border);padding:clamp(44px,6vh,72px) 0 28px}
+.ft{display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,56px);margin-bottom:48px}
+.fb{flex:1 1 260px}
+.fl{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.fl-b{width:34px;height:34px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#000}
+.fl-n{font-weight:800;font-size:15px;letter-spacing:-.025em}
+.fd{font-size:13px;color:var(--gray);line-height:1.7;max-width:260px;margin-bottom:20px}
+.fsocs{display:flex;gap:8px}
+.fsc{width:34px;height:34px;border-radius:9px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--gray);transition:all .25s;text-decoration:none}
+.fsc:hover{background:var(--bg3);border-color:var(--border3);color:#fff}
+.fct{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gray2);margin-bottom:14px}
+.fcl{display:block;margin-bottom:10px;font-size:13px;color:var(--gray);transition:color .2s;cursor:pointer}
+.fcl:hover{color:#fff}
+.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--gray2)}
+
+
+/* ══ ORBITAL SYSTEM ══ */
+.orbital-section{padding:clamp(60px,8vh,100px) 0;display:flex;flex-direction:column;align-items:center}
+.orbital-wrap{position:relative;width:min(560px,88vw);height:min(560px,88vw);margin:0 auto clamp(40px,5vh,64px);flex-shrink:0}
+/* Centre badge */
+.orb-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:clamp(100px,18vw,130px);height:clamp(100px,18vw,130px);
+  background:#fff;border-radius:24px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:20;box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 60px rgba(255,255,255,.08);
+  text-align:center;padding:12px;
+}
+.orb-center-name{font-size:clamp(10px,1.5vw,13px);font-weight:900;color:#000;letter-spacing:-.02em;line-height:1.2}
+.orb-center-sub{font-size:8px;font-weight:700;color:#555;letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+/* Rings */
+.orb-ring{
+  position:absolute;top:50%;left:50%;border-radius:50%;
+  border:1px solid rgba(255,255,255,.1);
+  transform:translate(-50%,-50%);
+}
+.orb-ring-a{width:46%;height:46%;animation:orbSpin 14s linear infinite;border-color:rgba(255,255,255,.14)}
+.orb-ring-b{width:72%;height:72%;animation:orbSpin 22s linear infinite reverse;border-color:rgba(255,255,255,.09)}
+.orb-ring-c{width:98%;height:98%;animation:orbSpin 34s linear infinite;border-color:rgba(255,255,255,.06)}
+@keyframes orbSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+/* Nodes */
+.orb-node{
+  position:absolute;
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:12px;backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:8px 10px;text-align:center;cursor:default;
+  transition:border-color .3s,box-shadow .3s,transform .3s;
+  white-space:nowrap;
+}
+.orb-node:hover{border-color:var(--border3);box-shadow:0 0 20px rgba(255,255,255,.07);transform:scale(1.12) !important}
+.orb-node-emoji{font-size:clamp(14px,2.5vw,18px);line-height:1;margin-bottom:3px}
+.orb-node-lbl{font-size:clamp(8px,1.2vw,10px);font-weight:700;letter-spacing:.04em;color:rgba(255,255,255,.65);text-transform:uppercase}
+/* Counter-rotation so labels stay upright */
+.orb-ring-a .orb-node{animation:orbSpin 14s linear infinite reverse}
+.orb-ring-b .orb-node{animation:orbSpin 22s linear infinite}
+.orb-ring-c .orb-node{animation:orbSpin 34s linear infinite reverse}
+/* Node positions on ring-a (4 nodes at 0°,90°,180°,270°) */
+.a1{top:-20px;left:50%;margin-left:-30px;width:60px}
+.a2{right:-20px;top:50%;margin-top:-22px}
+.a3{bottom:-20px;left:50%;margin-left:-30px;width:60px}
+.a4{left:-20px;top:50%;margin-top:-22px}
+/* Node positions on ring-b (6 nodes) */
+.b1{top:-22px;left:50%;margin-left:-36px;width:72px}
+.b2{top:12%;right:-22px}
+.b3{bottom:12%;right:-22px}
+.b4{bottom:-22px;left:50%;margin-left:-36px;width:72px}
+.b5{bottom:12%;left:-22px}
+.b6{top:12%;left:-22px}
+/* Node positions on ring-c (6 nodes) */
+.c1{top:-24px;left:50%;margin-left:-40px;width:80px}
+.c2{top:8%;right:-24px}
+.c3{bottom:20%;right:-24px}
+.c4{bottom:-24px;left:50%;margin-left:-40px;width:80px}
+.c5{bottom:20%;left:-24px}
+.c6{top:8%;left:-24px}
+/* Orbital section caption */
+.orb-caption{text-align:center;margin-bottom:44px;max-width:600px}
+.orb-caption h3{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+.orb-caption p{font-size:14px;color:var(--gray);line-height:1.65}
+
+/* ══ SCROLL REVEAL ══ */
+.sr{opacity:0;transform:translateY(28px);transition:opacity .72s cubic-bezier(.25,.1,.25,1),transform .72s cubic-bezier(.25,.1,.25,1)}
+.sr.d1{transition-delay:.08s}.sr.d2{transition-delay:.16s}.sr.d3{transition-delay:.24s}.sr.d4{transition-delay:.32s}.sr.d5{transition-delay:.4s}
+.sr.v{opacity:1;transform:translateY(0)}
+
+/* ══ CURSOR ══ */
+#cg{position:fixed;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.038),transparent 70%);pointer-events:none;z-index:1;transform:translate(-50%,-50%);transition:opacity .5s;opacity:0}
+
+@media(max-width:860px){.why-grid{grid-template-columns:1fr}#gr .wrap > div{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+<div id="cg"></div>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button id="mob-x" onclick="tMob()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <button class="mob-lnk" onclick="ss('#services');tMob()">Services</button>
+  <button class="mob-lnk" onclick="ss('#stories');tMob()">Work</button>
+  <button class="mob-lnk" onclick="ss('#pricing');tMob()">Pricing</button>
+  <button class="mob-lnk" onclick="ss('#team');tMob()">People</button>
+  <button class="mob-lnk" onclick="ss('#contact');tMob()">Contact</button>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<div id="nav-outer">
+  <nav id="nav">
+    <a class="nav-logo" href="#">
+      <div class="nav-badge">MS</div>
+      <span class="nav-name">Mosambi Studios</span>
+    </a>
+    <div class="nav-links">
+      <button class="nav-link dd" onclick="ss('#services')">Our Services</button>
+      <button class="nav-link dd" onclick="ss('#industries')">Industries</button>
+      <button class="nav-link" onclick="ss('#stories')">Success Stories</button>
+      <button class="nav-link" onclick="ss('#team')">Our People</button>
+      <button class="nav-link" onclick="ss('#pricing')">Pricing</button>
+    </div>
+    <div class="nav-right">
+      <div class="nav-clock" id="nav-clock">00:00 IST</div>
+      <button class="nav-cta" onclick="ss('#contact')">Book Intro Call</button>
+      <button id="mob-btn" onclick="tMob()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </nav>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hglow hg1"></div><div class="hglow hg2"></div>
+  <div class="hero-content">
+    <div class="hero-ey"><span class="ey-dot"></span><span class="ey-txt">Pune's Full-Stack Marketing Agency</span></div>
+    <h1 class="hero-h1">All Your Marketing<br>Needs. One Roof.<br><span class="ghost">No Compromises.</span></h1>
+    <p class="hero-sub">From viral video content to ₹10Cr growth playbooks — Mosambi Studios is where Pune's legacy brands and rising D2C disruptors come to dominate. 100K+ IG community. Real results.</p>
+    <div class="hero-cta">
+      <a class="btn btn-w" href="#contact">Book a Free Strategy Call<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a class="btn btn-ol" href="#stories">See Our Work<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="hero-proof">
+      <div class="av-st"><div class="av">KI</div><div class="av" style="background:linear-gradient(135deg,#1a1a1a,#333)">HV</div><div class="av" style="background:linear-gradient(135deg,#222,#444)">DB</div><div class="av" style="background:linear-gradient(135deg,#111,#2a2a2a)">MK</div></div>
+      <span class="proof-t">Trusted by <strong>50+ brands</strong> across Pune & India</span>
+    </div>
+    <div class="hero-stats sr">
+      <div class="hs"><div class="hs-n">50+</div><div class="hs-l">Brands Scaled</div></div>
+      <div class="hs"><div class="hs-n">100K+</div><div class="hs-l">Instagram Community</div></div>
+      <div class="hs"><div class="hs-n">70+</div><div class="hs-l">Lasik/mo for HV Desai</div></div>
+      <div class="hs"><div class="hs-n">#1</div><div class="hs-l">Google Rankings Delivered</div></div>
+      <div class="hs"><div class="hs-n">3.2×</div><div class="hs-l">Average ROAS</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap"><div class="ticker-track" id="ticker"></div></div>
+
+<!-- STATS ROW -->
+<section class="sec-sm"><div class="wrap"><div class="stats-row sr"><div class="sc"><div class="sc-n">24h</div><div class="sc-l">Launch Turnaround</div></div><div class="sc"><div class="sc-n">50+</div><div class="sc-l">Services On Tap</div></div><div class="sc"><div class="sc-n">7×</div><div class="sc-l">Lead Growth Avg.</div></div><div class="sc"><div class="sc-n">100K</div><div class="sc-l">Creator Community</div></div><div class="sc"><div class="sc-n">₹10Cr</div><div class="sc-l">Growth Playbook Proven</div></div><div class="sc"><div class="sc-n">5+</div><div class="sc-l">Years Executing</div></div></div></div></section>
+
+<!-- PAIN POINTS -->
+<section class="section divider" id="pain"><div class="wrap">
+  <div class="sec-hdr c sr"><div class="sec-tag"><span class="sec-tag-dot"></span>Sound Familiar?</div><h2 class="h2">What Brands Tell Us<br>Before They Switch</h2><p class="body-lg" style="margin-top:14px">We've heard these exact frustrations from 50+ brand owners. Here's what we did about it.</p></div>
+  <div class="pain-grid sr">
+    <div class="pc"><div class="pc-ico">😤</div><div class="pc-tag">Before Mosambi</div><div class="pc-prob">"We spent ₹5L on an agency and got zero leads."</div><div class="pc-sol"><strong>Our Fix:</strong> Performance-first contracts. Every rupee tracked. Real-time dashboards. If it doesn't convert, we pivot — same week.</div></div>
+    <div class="pc"><div class="pc-ico">📉</div><div class="pc-tag">Before Mosambi</div><div class="pc-prob">"12 months of SEO and we're still on page 4."</div><div class="pc-sol"><strong>Our Fix:</strong> Desai Bandhu Ambewale went from invisible to #1 on Google in 6 months — generating multi-crore mango sales online.</div></div>
+    <div class="pc"><div class="pc-ico">🧩</div><div class="pc-tag">Before Mosambi</div><div class="pc-prob">"Our social, ads, and website are with 3 different vendors."</div><div class="pc-sol"><strong>Our Fix:</strong> One team. One strategy. SEO, Meta Ads, content, web dev — integrated so every channel feeds the other.</div></div>
+    <div class="pc"><div class="pc-ico">💸</div><div class="pc-tag">Before Mosambi</div><div class="pc-prob">"I don't know what I'm paying for each month."</div><div class="pc-sol"><strong>Our Fix:</strong> Weekly performance dashboards. Every task visible. Every rupee accounted for. No surprises — only results.</div></div>
+    <div class="pc"><div class="pc-ico">🏥</div><div class="pc-tag">Before Mosambi</div><div class="pc-prob">"We're a 40-year hospital. Digital feels too risky."</div><div class="pc-sol"><strong>Our Fix:</strong> H.V. Desai Eye Hospital went from 10–12 to 70+ Lasik surgeries/month through precision lead gen and compliance-safe content.</div></div>
+    <div class="pc"><div class="pc-ico">👻</div><div class="pc-tag">Before Mosambi</div><div class="pc-prob">"Influencers give us likes but zero sales."</div><div class="pc-sol"><strong>Our Fix:</strong> Wrong influencer = expensive mistake. Our 100K+ curated community drives conversions, not vanity metrics.</div></div>
+  </div>
+</div></section>
+
+<!-- SERVICES CAROUSEL -->
+<section class="section divider" id="services">
+
+  <!-- ══ ORBITAL ANIMATION ══ -->
+  <div class="orbital-section sr">
+    <div class="orb-caption">
+      <h3>One team. Every service.<br>All connected.</h3>
+      <p>Unlike fragmented agencies, every service at Mosambi Studios feeds the next — forming one unified growth engine for your brand.</p>
+    </div>
+    <div class="orbital-wrap">
+      <!-- Centre -->
+      <div class="orb-center">
+        <div class="orb-center-name">Mosambi<br>Studios</div>
+        <div class="orb-center-sub">Full Stack</div>
+      </div>
+
+      <!-- Ring A — innermost (4 nodes) -->
+      <div class="orb-ring orb-ring-a">
+        <div class="orb-node a1"><div class="orb-node-emoji">🎬</div><div class="orb-node-lbl">Video</div></div>
+        <div class="orb-node a2"><div class="orb-node-emoji">📊</div><div class="orb-node-lbl">Ads</div></div>
+        <div class="orb-node a3"><div class="orb-node-emoji">🔍</div><div class="orb-node-lbl">SEO</div></div>
+        <div class="orb-node a4"><div class="orb-node-emoji">📱</div><div class="orb-node-lbl">Social</div></div>
+      </div>
+
+      <!-- Ring B — middle (6 nodes) -->
+      <div class="orb-ring orb-ring-b">
+        <div class="orb-node b1"><div class="orb-node-emoji">🛍️</div><div class="orb-node-lbl">Shopify</div></div>
+        <div class="orb-node b2"><div class="orb-node-emoji">🤝</div><div class="orb-node-lbl">Influencer</div></div>
+        <div class="orb-node b3"><div class="orb-node-emoji">💻</div><div class="orb-node-lbl">Web Dev</div></div>
+        <div class="orb-node b4"><div class="orb-node-emoji">📱</div><div class="orb-node-lbl">App Dev</div></div>
+        <div class="orb-node b5"><div class="orb-node-emoji">🎯</div><div class="orb-node-lbl">Lead Gen</div></div>
+        <div class="orb-node b6"><div class="orb-node-emoji">✉️</div><div class="orb-node-lbl">Email</div></div>
+      </div>
+
+      <!-- Ring C — outermost (6 nodes) -->
+      <div class="orb-ring orb-ring-c">
+        <div class="orb-node c1"><div class="orb-node-emoji">🧠</div><div class="orb-node-lbl">Strategy</div></div>
+        <div class="orb-node c2"><div class="orb-node-emoji">📈</div><div class="orb-node-lbl">Analytics</div></div>
+        <div class="orb-node c3"><div class="orb-node-emoji">🎨</div><div class="orb-node-lbl">Branding</div></div>
+        <div class="orb-node c4"><div class="orb-node-emoji">🏆</div><div class="orb-node-lbl">PR & Media</div></div>
+        <div class="orb-node c5"><div class="orb-node-emoji">🔄</div><div class="orb-node-lbl">CRO</div></div>
+        <div class="orb-node c6"><div class="orb-node-emoji">📦</div><div class="orb-node-lbl">UGC</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><div class="svc-hdr sr"><div><div class="sec-tag" style="margin-bottom:14px"><span class="sec-tag-dot"></span>Under One Roof</div><h2 class="h2">Every marketing service<br>you could wish for</h2></div><a class="btn btn-ol" href="#contact">Get Started<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div>
+  <div style="padding-left:clamp(20px,4vw,56px)">
+    <div class="svc-outer"><div class="svc-car" id="svc-car">
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".35"><polyline points="0,52 15,38 26,44 40,20 55,30 70,10 80,14" stroke="#fff" stroke-width="2" fill="none"/></svg></div><div class="svc-title">Performance Marketing</div><div class="svc-desc">Full-funnel Meta and Google campaigns that convert. We manage ₹50L+ in ad spend monthly — every rupee traced to actual revenue. 3.2× average ROAS across our D2C portfolio.</div></div><div class="svc-tags"><span class="svc-tag">Meta Ads</span><span class="svc-tag">Google Ads</span><span class="svc-tag">ROAS Tracking</span><span class="svc-tag">A/B Testing</span><span class="svc-tag">Retargeting</span><span class="svc-tag">Shopping Ads</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".3"><rect x="5" y="38" width="9" height="16" fill="#fff"/><rect x="22" y="26" width="9" height="28" fill="#fff"/><rect x="39" y="14" width="9" height="40" fill="#fff"/><rect x="56" y="5" width="9" height="49" fill="#fff"/></svg></div><div class="svc-title">SEO & Google Ranking</div><div class="svc-desc">Technical SEO, content strategy, and link building that earns #1 positions. Desai Bandhu Ambewale hit #1 for core keywords — multi-crore online mango business built. H.V. Desai ranks #1 for "Lasik surgery Pune".</div></div><div class="svc-tags"><span class="svc-tag">Technical SEO</span><span class="svc-tag">Local SEO</span><span class="svc-tag">Content Strategy</span><span class="svc-tag">Link Building</span><span class="svc-tag">Core Web Vitals</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.9L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".28"><rect x="10" y="8" width="60" height="38" rx="6" stroke="#fff" stroke-width="1.5"/><circle cx="22" cy="27" r="8" stroke="#fff" stroke-width="1.5"/><path d="M35 20h25M35 27h20M35 34h15" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="svc-title">Video Production</div><div class="svc-desc">Cinematic brand films, product shoots, and scroll-stopping reels — shot and edited entirely in-house. Not outsourced. Not templated. Every frame crafted with intent to convert.</div></div><div class="svc-tags"><span class="svc-tag">Brand Films</span><span class="svc-tag">Reels</span><span class="svc-tag">UGC</span><span class="svc-tag">Product Shoots</span><span class="svc-tag">YouTube Ads</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".28"><circle cx="20" cy="28" r="12" stroke="#fff" stroke-width="1.5"/><circle cx="46" cy="20" r="10" stroke="#fff" stroke-width="1.5"/><circle cx="66" cy="34" r="8" stroke="#fff" stroke-width="1.5"/><line x1="32" y1="28" x2="36" y2="22" stroke="#fff" stroke-width="1.5"/></svg></div><div class="svc-title">Influencer Marketing</div><div class="svc-desc">Our 100K+ Instagram community is also a curated creator database — matched to brands by audience overlap, not just follower counts. Nano to macro, managed end-to-end with full ROI tracking.</div></div><div class="svc-tags"><span class="svc-tag">Nano Creators</span><span class="svc-tag">Micro Campaigns</span><span class="svc-tag">Macro Collabs</span><span class="svc-tag">Product Seeding</span><span class="svc-tag">ROI Tracking</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".28"><rect x="5" y="6" width="70" height="42" rx="5" stroke="#fff" stroke-width="1.5"/><rect x="12" y="14" width="56" height="26" rx="3" stroke="#fff" stroke-width="1"/><line x1="5" y1="18" x2="75" y2="18" stroke="#fff" stroke-width="1" opacity=".5"/></svg></div><div class="svc-title">Shopify & Web Development</div><div class="svc-desc">Conversion-optimised Shopify stores and full-stack web apps built by in-house engineers. Roommate Products: 58→91 audit score. Sarada Landmark generated ₹2Cr+ from their new website alone.</div></div><div class="svc-tags"><span class="svc-tag">Shopify Dev</span><span class="svc-tag">React.js</span><span class="svc-tag">Next.js</span><span class="svc-tag">Mobile Apps</span><span class="svc-tag">UI/UX Design</span><span class="svc-tag">CRO</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".28"><rect x="5" y="8" width="50" height="33" rx="6" stroke="#fff" stroke-width="1.5"/><rect x="25" y="18" width="50" height="33" rx="6" stroke="#fff" stroke-width="1.5"/><path d="M15 22h30M15 30h22" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="svc-title">Social Media Management</div><div class="svc-desc">Strategy, scripting, shooting, editing, posting, and community management — Instagram, YouTube, Facebook, and LinkedIn all handled by one integrated team. 20–40 content pieces per month.</div></div><div class="svc-tags"><span class="svc-tag">Instagram</span><span class="svc-tag">YouTube</span><span class="svc-tag">LinkedIn</span><span class="svc-tag">Facebook</span><span class="svc-tag">Content Calendar</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 015 1.18 2 2 0 016.92 3v3a2 2 0 01-1.45 1.93 16 16 0 006.57 6.57A2 2 0 0122 16.92z"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".28"><circle cx="40" cy="28" r="20" stroke="#fff" stroke-width="1.5"/><path d="M20 28h40M40 8a30 20 0 010 40" stroke="#fff" stroke-width="1"/></svg></div><div class="svc-title">Lead Generation & B2B</div><div class="svc-desc">LinkedIn outreach, Google lead forms, and WhatsApp funnels generating qualified pipeline — not junk fills. PCSPL got 14 qualified MNC meetings in 60 days from zero digital presence.</div></div><div class="svc-tags"><span class="svc-tag">LinkedIn Outreach</span><span class="svc-tag">Google Lead Forms</span><span class="svc-tag">WhatsApp Funnels</span><span class="svc-tag">Email Sequences</span></div></div>
+      <div class="svc-slide"><div><div class="svc-top"><div class="svc-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14M15.54 8.46a5 5 0 010 7.08M8.46 8.46a5 5 0 000 7.08"/></svg></div><svg width="80" height="55" viewBox="0 0 80 55" fill="none" opacity=".28"><rect x="10" y="4" width="60" height="14" rx="4" stroke="#fff" stroke-width="1.5"/><rect x="10" y="22" width="60" height="14" rx="4" stroke="#fff" stroke-width="1.5"/><rect x="10" y="40" width="60" height="14" rx="4" stroke="#fff" stroke-width="1.5"/></svg></div><div class="svc-title">Brand Strategy & Analytics</div><div class="svc-desc">Custom dashboards connecting Meta, Google, Shopify, and CRM data — one clear picture. Positioning, competitor intelligence, and weekly reports that actually tell you what to do next.</div></div><div class="svc-tags"><span class="svc-tag">Brand Positioning</span><span class="svc-tag">GA4 Setup</span><span class="svc-tag">Attribution</span><span class="svc-tag">Weekly Reports</span><span class="svc-tag">Funnel Analysis</span></div></div>
+    </div></div>
+    <div class="wrap"><div class="svc-ctrl sr"><button class="svc-arr" onclick="svcS(-1)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button><button class="svc-arr" onclick="svcS(1)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button><div class="svc-prog"><div class="svc-pb" id="svc-pb"></div></div></div></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section divider" id="why-us"><div class="wrap">
+  <div class="sec-hdr sr"><div class="sec-tag"><span class="sec-tag-dot"></span>Why Mosambi</div><h2 class="h2">Why We Beat Traditional<br>Marketing Every Time</h2></div>
+  <div class="why-grid">
+    <div class="why-items sr">
+      <div class="wi"><div class="wi-ico">⚡</div><div><div class="wi-t">Results in Days, Not Months</div><div class="wi-d">Traditional agencies spend 3 months strategising. We launch your first campaign in week 1. H.V. Desai went from 10 to 70+ Lasik/month in 90 days.</div></div></div>
+      <div class="wi"><div class="wi-ico">🔗</div><div><div class="wi-t">Everything Is Integrated</div><div class="wi-d">SEO, ads, social, and web dev — one team, one goal. No communication gaps. No finger-pointing between vendors.</div></div></div>
+      <div class="wi"><div class="wi-ico">📊</div><div><div class="wi-t">Full Transparency, Always</div><div class="wi-d">Weekly reporting. Real-time dashboards. Every rupee tracked. You always know what's being done and why.</div></div></div>
+      <div class="wi"><div class="wi-ico">🎯</div><div><div class="wi-t">Gen Z Content Intelligence</div><div class="wi-d">We live on Instagram, YouTube, and LinkedIn. We know what goes viral before it's made — because we grew our own 100K+ community doing it.</div></div></div>
+      <div class="wi"><div class="wi-ico">🏆</div><div><div class="wi-t">Proven With Pune's Legacy Brands</div><div class="wi-d">Khatri Bandhu, Desai Bandhu Ambewale, H.V. Desai Eye Hospital — century-old names trust us. That's not coincidence.</div></div></div>
+    </div>
+    <div class="sr d2">
+      <div class="vs-table">
+        <div class="vs-h"><span>What You Need</span><span>Mosambi</span><span>Traditional</span></div>
+        <div class="vs-r"><span>Launch timeline</span><span>✓ Week 1</span><span>✗ Month 3+</span></div>
+        <div class="vs-r"><span>Channel integration</span><span>✓ Unified</span><span>✗ Siloed</span></div>
+        <div class="vs-r"><span>Reporting cadence</span><span>✓ Weekly</span><span>✗ Monthly</span></div>
+        <div class="vs-r"><span>Content creation</span><span>✓ In-house</span><span>✗ Outsourced</span></div>
+        <div class="vs-r"><span>Influencer access</span><span>✓ 100K+ network</span><span>✗ Third party</span></div>
+        <div class="vs-r"><span>SEO + Ads + Dev</span><span>✓ Same team</span><span>✗ 3 vendors</span></div>
+        <div class="vs-r"><span>Flexibility</span><span>✓ Weekly pivots</span><span>✗ Fixed contract</span></div>
+        <div class="vs-r"><span>Accountability</span><span>✓ Revenue-tied</span><span>✗ Hour-billed</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- SUCCESS STORIES -->
+<section class="section divider" id="stories"><div class="wrap">
+  <div class="sec-hdr c sr"><div class="sec-tag"><span class="sec-tag-dot"></span>Success Stories</div><h2 class="h2">Pune's Biggest Brands.<br>Our Proudest Wins.</h2><p class="body-lg" style="margin-top:14px">Real results, real numbers. Not case studies — transformations.</p></div>
+  <div class="story-grid">
+    <div class="story-card sr"><div class="story-top" style="background:linear-gradient(145deg,#0d0800,#1a1000)"><div class="story-num">01</div><div class="story-ind">🥭 D2C · SEO · E-commerce</div><div class="story-name">Desai Bandhu Ambewale</div><div class="story-city">100+ Year Legacy Alphonso Mango Brand · Pune</div></div><div class="story-bot"><div class="story-mets"><div><div class="sm-v">#1</div><div class="sm-l">Google Ranking</div></div><div><div class="sm-v">Multi-Cr</div><div class="sm-l">Online Revenue</div></div><div><div class="sm-v">6mo</div><div class="sm-l">To Rank #1</div></div></div><div class="story-desc">A 100-year-old Pune mango dynasty had zero digital presence. We built their complete digital identity — Next.js site, Sanity CMS — and executed aggressive SEO. Within 6 months they hit #1 on Google, turning seasonal walk-in sales into a year-round, multi-crore online business with pan-India delivery.</div></div></div>
+    <div class="story-card sr d1"><div class="story-top" style="background:linear-gradient(145deg,#00100d,#001a16)"><div class="story-num">02</div><div class="story-ind">🏥 Healthcare · Lead Gen · SEO</div><div class="story-name">H.V. Desai Eye Hospital</div><div class="story-city">Pune's Premier Eye Care Institution</div></div><div class="story-bot"><div class="story-mets"><div><div class="sm-v">70+</div><div class="sm-l">Lasik/Month</div></div><div><div class="sm-v">7×</div><div class="sm-l">Lead Growth</div></div><div><div class="sm-v">#1</div><div class="sm-l">Google Local</div></div></div><div class="story-desc">Relying entirely on word-of-mouth — just 10–12 Lasik surgeries/month. We deployed local SEO, Google Ads, Meta lead gen, and compliance-safe content. Now rank #1 for "Lasik surgery Pune". Monthly procedures: 12 → 70+. Cost-per-lead under ₹800.</div></div></div>
+    <div class="story-card sr d2"><div class="story-top" style="background:linear-gradient(145deg,#0a0010,#130020)"><div class="story-num">03</div><div class="story-ind">🍦 D2C · Meta Ads · Social</div><div class="story-name">Khatri Bandhu Ice Cream</div><div class="story-city">Pune's Beloved Legacy Ice Cream Brand</div></div><div class="story-bot"><div class="story-mets"><div><div class="sm-v">3.2×</div><div class="sm-l">ROAS</div></div><div><div class="sm-v">₹8L+</div><div class="sm-l">Monthly Revenue</div></div><div><div class="sm-v">90d</div><div class="sm-l">Timeline</div></div></div><div class="story-desc">Zero paid digital presence. Built the entire Meta funnel from scratch — UGC-driven creative, hyper-local targeting, retargeting flows. In 90 days: ₹0 → ₹8L+/month at 3.2× ROAS. Their Instagram community is now their biggest brand asset.</div></div></div>
+    <div class="story-card sr d3"><div class="story-top" style="background:linear-gradient(145deg,#100800,#1c1200)"><div class="story-num">04</div><div class="story-ind">🌸 D2C · Shopify · Influencer</div><div class="story-name">Maa Kesar Saffron</div><div class="story-city">Premium Kashmiri Saffron · D2C</div></div><div class="story-bot"><div class="story-mets"><div><div class="sm-v">₹4L+</div><div class="sm-l">Monthly Revenue</div></div><div><div class="sm-v">Top 3</div><div class="sm-l">Google Rankings</div></div><div><div class="sm-v">5mo</div><div class="sm-l">To Scale</div></div></div><div class="story-desc">Premium saffron brand in a trust-deficit category. Rebuilt their Shopify store, activated micro-influencers in food and wellness, ran Google Shopping campaigns. Revenue: ₹80K → ₹4L+/month in 5 months.</div></div></div>
+    <div class="story-card sr d4"><div class="story-top" style="background:linear-gradient(145deg,#080800,#141400)"><div class="story-num">05</div><div class="story-ind">🏛️ Real Estate · Branding · Web</div><div class="story-name">Sarada Landmark</div><div class="story-city">Premium Real Estate Developer · Karad</div></div><div class="story-bot"><div class="story-mets"><div><div class="sm-v">₹2Cr+</div><div class="sm-l">Bookings</div></div><div><div class="sm-v">6wk</div><div class="sm-l">Delivery</div></div><div><div class="sm-v">100%</div><div class="sm-l">Digital Relaunch</div></div></div><div class="story-desc">Strong properties, weak digital presence. Created luxury brand identity, premium React.js website, and 14-slide investor deck. The relaunch generated ₹2Cr+ in property bookings in 60 days — entirely from inbound digital leads.</div></div></div>
+    <div class="story-card sr d5" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:48px 32px;border-style:dashed"><div style="font-size:44px;margin-bottom:18px">🚀</div><h3 style="font-size:20px;font-weight:900;letter-spacing:-.03em;margin-bottom:10px">Your Brand Next?</h3><p class="story-desc" style="margin-bottom:24px;max-width:260px">We take on select new clients each quarter. Book a free strategy call.</p><a class="btn btn-w btn-sm" href="#contact">Let's Talk →</a></div>
+  </div>
+</div></section>
+
+<!-- INDUSTRIES -->
+<section class="section divider" id="industries"><div class="wrap">
+  <div class="sec-hdr sr"><div class="sec-tag"><span class="sec-tag-dot"></span>Industries</div><h2 class="h2">We've Scaled Brands<br>Across Every Category</h2></div>
+  <div class="ind-tabs sr" id="ind-tabs"><button class="ind-tab on" onclick="sInd('d2c',this)">🛍️ D2C</button><button class="ind-tab" onclick="sInd('health',this)">🏥 Healthcare</button><button class="ind-tab" onclick="sInd('re',this)">🏛️ Real Estate</button><button class="ind-tab" onclick="sInd('b2b',this)">🤝 B2B</button><button class="ind-tab" onclick="sInd('ecom',this)">💻 E-commerce</button><button class="ind-tab" onclick="sInd('food',this)">🍴 Food & Bev</button></div>
+  <div id="ind-panels" class="sr">
+    <div class="ind-panel on" id="ind-d2c"><div class="ind-card"><div class="ind-ct">D2C Brand Launch</div><div class="ind-cd">From zero to market — brand identity, Shopify store, Meta ads, influencer seeding, and SEO.</div></div><div class="ind-card"><div class="ind-ct">Meta & Google Performance</div><div class="ind-cd">Full-funnel paid media. Average 3.2× ROAS across our D2C portfolio.</div></div><div class="ind-card"><div class="ind-ct">D2C Retention Marketing</div><div class="ind-cd">WhatsApp, email, and loyalty flows that turn one-time buyers into repeat customers.</div></div><div class="ind-card"><div class="ind-ct">Influencer & UGC Engine</div><div class="ind-cd">Structured creator seeding that generates authentic content and social proof at scale.</div></div></div>
+    <div class="ind-panel" id="ind-health"><div class="ind-card"><div class="ind-ct">Healthcare Lead Generation</div><div class="ind-cd">Compliant, ethical lead gen. H.V. Desai grew from 10 to 70+ Lasik surgeries/month.</div></div><div class="ind-card"><div class="ind-ct">Local SEO for Hospitals</div><div class="ind-cd">Ranking #1 on "near me" searches for medical procedures — eye care, dental, specialty.</div></div><div class="ind-card"><div class="ind-ct">DPDP Compliance</div><div class="ind-cd">We navigate India's Digital Personal Data Protection Act so your marketing stays safe.</div></div><div class="ind-card"><div class="ind-ct">Patient Acquisition Funnels</div><div class="ind-cd">Full-funnel patient journeys from Google search to appointment booking with trackable CPA.</div></div></div>
+    <div class="ind-panel" id="ind-re"><div class="ind-card"><div class="ind-ct">Real Estate Digital Launch</div><div class="ind-cd">Premium brand identity, website, lead gen. Sarada Landmark: ₹2Cr+ in 60 days.</div></div><div class="ind-card"><div class="ind-ct">Meta Lead Campaigns</div><div class="ind-cd">Hyper-targeted campaigns reaching buyers with the right income profile and intent.</div></div><div class="ind-card"><div class="ind-ct">Luxury Branding</div><div class="ind-cd">Premium visual identity, pitch decks, and websites that justify premium pricing.</div></div><div class="ind-card"><div class="ind-ct">Property Video & Tours</div><div class="ind-cd">Cinematic property videos and walkthroughs that convert browsers before site visits.</div></div></div>
+    <div class="ind-panel" id="ind-b2b"><div class="ind-card"><div class="ind-ct">LinkedIn Lead Generation</div><div class="ind-cd">Decision-maker outreach. 14 MNC meetings in 60 days for PCSPL from zero presence.</div></div><div class="ind-card"><div class="ind-ct">B2B Content & SEO</div><div class="ind-cd">Long-form content and technical SEO that positions you as the category authority.</div></div><div class="ind-card"><div class="ind-ct">Account-Based Marketing</div><div class="ind-cd">Targeting specific companies and decision-makers across LinkedIn, email, and retargeting.</div></div><div class="ind-card"><div class="ind-ct">B2B Website Development</div><div class="ind-cd">High-converting websites with CRM integration, lead tracking, and clear conversion funnels.</div></div></div>
+    <div class="ind-panel" id="ind-ecom"><div class="ind-card"><div class="ind-ct">Shopify Development</div><div class="ind-cd">Conversion-first stores with custom themes and integrations. Roommate Products: 58→91.</div></div><div class="ind-card"><div class="ind-ct">E-commerce SEO</div><div class="ind-cd">Category page optimisation, product listing SEO, and content that drives buying intent.</div></div><div class="ind-card"><div class="ind-ct">Google Shopping</div><div class="ind-cd">Product feed optimisation and Shopping campaigns for maximum visibility at decision moment.</div></div><div class="ind-card"><div class="ind-ct">Cart Recovery</div><div class="ind-cd">Abandoned cart emails, WhatsApp nudges, and loyalty programs recovering 20–35% lost revenue.</div></div></div>
+    <div class="ind-panel" id="ind-food"><div class="ind-card"><div class="ind-ct">Food Brand Social Media</div><div class="ind-cd">Scroll-stopping reels, flat lays, and behind-the-scenes that build cravings and communities.</div></div><div class="ind-card"><div class="ind-ct">Food Influencer Campaigns</div><div class="ind-cd">Partnerships with Pune's top food creators and national influencers who drive orders.</div></div><div class="ind-card"><div class="ind-ct">Swiggy & Zomato Marketing</div><div class="ind-cd">On-platform promotions and off-platform traffic that increases your delivery platform rankings.</div></div><div class="ind-card"><div class="ind-ct">Seasonal Campaigns</div><div class="ind-cd">Festivals, IPL, cricket seasons — campaigns that capitalise on peak demand moments.</div></div></div>
+  </div>
+</div></section>
+
+<!-- TEAM -->
+<section class="section divider" id="team"><div class="wrap">
+  <div class="sec-hdr c sr"><div class="sec-tag"><span class="sec-tag-dot"></span>Our People</div><h2 class="h2">The Minds Behind<br>Every Campaign</h2><p class="body-lg" style="margin-top:14px">Young, sharp, obsessed with results. We don't just run campaigns — we live and breathe digital culture.</p></div>
+  <div class="team-grid sr">
+    <div class="team-card"><div class="team-av" style="background:linear-gradient(135deg,#1a1a1a,#333)">P</div><div class="team-n">Priyam</div><div class="team-r">Founder & CEO</div><div class="team-b">Vision, strategy, and client relationships. 5+ years building brands across Pune and beyond.</div></div>
+    <div class="team-card"><div class="team-av" style="background:linear-gradient(135deg,#111,#2a2a2a)">SB</div><div class="team-n">Shubham Bhattad</div><div class="team-r">CMO</div><div class="team-b">Performance marketing and growth strategy. The brain behind our ₹10Cr growth playbook.</div></div>
+    <div class="team-card"><div class="team-av" style="background:linear-gradient(135deg,#1c1c1c,#444)">CT</div><div class="team-n">Creative Team</div><div class="team-r">Video & Content</div><div class="team-b">Cinematographers, editors, and designers who make brands look like they belong on Netflix.</div></div>
+    <div class="team-card"><div class="team-av" style="background:linear-gradient(135deg,#0d0d0d,#222)">DT</div><div class="team-n">Dev Team</div><div class="team-r">Web & App</div><div class="team-b">Full-stack engineers shipping React, Next.js, Shopify, and mobile apps — all in-house.</div></div>
+    <div class="team-card"><div class="team-av" style="background:linear-gradient(135deg,#181818,#383838)">MB</div><div class="team-n">Media Buyers</div><div class="team-r">Paid Advertising</div><div class="team-b">Meta and Google certified specialists managing ₹50L+ in ad spend monthly.</div></div>
+    <div class="team-card"><div class="team-av" style="background:linear-gradient(135deg,#141414,#2c2c2c)">IT</div><div class="team-n">Influencer Team</div><div class="team-r">Creator Relations</div><div class="team-b">Managing our 100K+ creator community — matching brands to the right voices every day.</div></div>
+  </div>
+</div></section>
+
+<!-- TIMELINE -->
+<section class="section divider" id="gr"><div class="wrap">
+  <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(32px,6vw,80px);align-items:start" id="tl-layout">
+    <div class="sr"><div class="sec-tag" style="margin-bottom:16px"><span class="sec-tag-dot"></span>The Growth Roadmap</div><h2 class="h2" style="margin-bottom:16px">₹0 to ₹10 Crore.<br><span style="color:var(--gray);font-weight:500;font-size:clamp(1.5rem,3vw,2.8rem)">Month by Month.</span></h2><p class="body-lg" style="margin-bottom:28px">Our proven playbook — deployed across 50+ brands. Every phase is designed to compound on the last, building an unstoppable growth engine.</p><a class="btn btn-w" href="#contact">Get Your Custom Roadmap<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+    <div class="tl-outer sr d2"><div class="tl-line"></div><div class="tl-wrap">
+      <div class="tl-item"><div class="tl-dot">1</div><div class="tl-badge">Month 1–3 · Foundation</div><div class="tl-title">Brand identity locked. Store live.</div><div class="tl-desc">Brand identity, website/Shopify, first content, SEO foundation, first ₹500/day Meta test launched.</div><div class="tl-chips"><span class="tl-chip">Brand</span><span class="tl-chip">Website</span><span class="tl-chip">SEO</span><span class="tl-chip">First Ads</span></div></div>
+      <div class="tl-item"><div class="tl-dot">2</div><div class="tl-badge">Month 4–6 · Ignition</div><div class="tl-title">Ads scaled. First ₹1L+ month.</div><div class="tl-desc">Ads scaled to ₹5K–₹20K/day. Influencer seeding activated. Content engine producing 20+ pieces/month.</div><div class="tl-chips"><span class="tl-chip">Scale Ads</span><span class="tl-chip">Influencers</span><span class="tl-chip">Content Engine</span></div></div>
+      <div class="tl-item"><div class="tl-dot">3</div><div class="tl-badge">Month 7–9 · Scale</div><div class="tl-title">50+ creatives. ₹10L+ monthly.</div><div class="tl-desc">50+ ad creatives tested. Google Shopping and SEO compound. Retention loops (email/WhatsApp) built.</div><div class="tl-chips"><span class="tl-chip">Creative Testing</span><span class="tl-chip">Google</span><span class="tl-chip">Retention</span></div></div>
+      <div class="tl-item"><div class="tl-dot">4</div><div class="tl-badge">Month 10–12 · Authority</div><div class="tl-title">Category SEO #1. ₹1Cr run rate.</div><div class="tl-desc">Category SEO dominance. PR and earned media. Cross-platform omnipresence. B2B/wholesale opens.</div><div class="tl-chips"><span class="tl-chip">SEO #1</span><span class="tl-chip">PR</span><span class="tl-chip">B2B</span></div></div>
+      <div class="tl-item"><div class="tl-dot">★</div><div class="tl-badge">Month 13–24 · Domination</div><div class="tl-title">National media. ₹10Cr+ annual.</div><div class="tl-desc">National TV/OTT buy. Celebrity partnerships. Mobile app launch. Series A narrative built.</div><div class="tl-chips"><span class="tl-chip">TV/OTT</span><span class="tl-chip">Celebrity</span><span class="tl-chip">₹10Cr+</span></div></div>
+    </div></div>
+  </div>
+</div></section>
+
+<!-- PRICING -->
+<section class="section divider" id="pricing"><div class="wrap">
+  <div class="sec-hdr c sr"><div class="sec-tag"><span class="sec-tag-dot"></span>Pricing</div><h2 class="h2">One Subscription.<br>Your Entire Marketing Team.</h2><p class="body-lg" style="margin-top:14px">No hidden fees. No hourly billing. No confusion. Just results — tracked weekly.</p></div>
+  <div class="price-tog-row sr"><span class="ptog-lbl">Monthly</span><button class="ptog" id="ptog" onclick="tPrice()"><div class="ptog-k"></div></button><span class="ptog-lbl">Quarterly</span><span class="save-badge">Save 15%</span></div>
+  <div class="price-grid sr">
+    <div class="pc2"><div class="p-plan">Starter</div><div class="p-amt" data-m="₹30,000" data-q="₹25,500">₹30,000<span class="p-period">/mo</span></div><div class="p-desc">For small businesses and new D2C brands taking their first serious step.</div><ul class="p-feats"><li>Social media management (2 platforms)</li><li>8 reels/content pieces per month</li><li>Basic SEO setup & monitoring</li><li>Meta Ads (up to ₹20K ad spend)</li><li>Monthly performance report</li><li>WhatsApp support</li></ul><a class="btn btn-ol" href="#contact" style="width:100%;justify-content:center">Get Started →</a><div class="p-dur"><div class="p-dur-l">Recommended Timeline</div><div class="dtabs"><button class="dtab on">3 Months</button><button class="dtab">6 Months</button></div></div></div>
+    <div class="pc2 feat"><div class="fbadge">⭐ Most Popular</div><div class="p-plan">Growth</div><div class="p-amt" data-m="₹75,000" data-q="₹63,750">₹75,000<span class="p-period">/mo</span></div><div class="p-desc">For established brands ready to scale with a dedicated full-stack team.</div><ul class="p-feats"><li>Social media management (4 platforms)</li><li>20 reels/content pieces per month</li><li>Full SEO strategy & execution</li><li>Meta + Google Ads (up to ₹1L ad spend)</li><li>Influencer campaigns (5 creators/month)</li><li>Weekly performance dashboard</li><li>Dedicated account manager</li><li>Quarterly brand strategy review</li></ul><a class="btn btn-w" href="#contact" style="width:100%;justify-content:center">Start Growing →</a><div class="p-dur"><div class="p-dur-l">Recommended Timeline</div><div class="dtabs"><button class="dtab">3 Months</button><button class="dtab on">6 Months</button><button class="dtab">9 Months</button></div></div></div>
+    <div class="pc2"><div class="p-plan">Enterprise</div><div class="p-amt" data-m="₹2,00,000" data-q="₹1,70,000">₹2,00,000<span class="p-period">/mo</span></div><div class="p-desc">For brands serious about domination. Full marketing department — unlimited scope.</div><ul class="p-feats"><li>Unlimited social platforms</li><li>40+ content pieces per month</li><li>Advanced SEO + PR + earned media</li><li>Meta + Google + LinkedIn (unlimited spend)</li><li>Macro influencer campaigns</li><li>Web / App development included</li><li>Real-time analytics dashboard</li><li>CEO-level weekly strategy calls</li><li>2 brand films per month</li></ul><a class="btn btn-ol" href="#contact" style="width:100%;justify-content:center">Let's Talk →</a><div class="p-dur"><div class="p-dur-l">Recommended Timeline</div><div class="dtabs"><button class="dtab">6 Months</button><button class="dtab on">1 Year</button><button class="dtab">2 Years</button></div></div></div>
+  </div>
+  <p style="text-align:center;margin-top:18px;font-size:12px;color:var(--gray2)">All plans exclude ad spend. Ad budgets billed directly by Meta/Google. No hidden fees.</p>
+</div></section>
+
+<!-- FAQ -->
+<section class="section divider" id="faq"><div class="wrap" style="max-width:800px">
+  <div class="sec-hdr c sr"><div class="sec-tag"><span class="sec-tag-dot"></span>FAQ</div><h2 class="h2">Questions We Get<br>Every Week</h2></div>
+  <div class="faq-list sr" id="faq-list"></div>
+</div></section>
+
+<!-- CTA -->
+<section class="section" id="contact"><div class="wrap">
+  <div class="cta-band sr"><div class="cta-inner">
+    <div class="sec-tag" style="justify-content:center;margin-bottom:18px"><span class="sec-tag-dot"></span>Ready to Scale?</div>
+    <h2 class="cta-h2">Let's Build Something<br>Pune Will Talk About.</h2>
+    <p class="cta-sub">Book a free 45-minute strategy call. We'll audit your current marketing, identify your biggest growth levers, and show you exactly what we'd do — no obligation.</p>
+    <div class="cta-btns"><a class="btn btn-w" href="tel:+919999999999">📞 Book a Strategy Call</a><a class="btn btn-ol" href="https://wa.me/919999999999">💬 WhatsApp Us</a><a class="btn btn-ol" href="mailto:hello@mosambi.studio">✉️ Email Us</a></div>
+    <div class="cta-trust"><span class="cta-ti">✓ Free strategy audit</span><span class="cta-ti">✓ No commitment required</span><span class="cta-ti">✓ Results within 30 days</span><span class="cta-ti">✓ Pune-based team</span></div>
+  </div></div>
+</div></section>
+
+<!-- FOOTER -->
+<footer><div class="wrap">
+  <div class="ft">
+    <div class="fb"><div class="fl"><div class="fl-b">MS</div><span class="fl-n">Mosambi Studios</span></div><div class="fd">Pune's full-stack digital marketing agency. Video, social, web, performance — all under one roof.</div><div class="fsocs"><a class="fsc" href="#">📷</a><a class="fsc" href="#">▶️</a><a class="fsc" href="#">💼</a><a class="fsc" href="#">💬</a></div></div>
+    <div><div class="fct">Services</div><div class="fcl">Video Production</div><div class="fcl">Meta & Google Ads</div><div class="fcl">SEO & Google Ranking</div><div class="fcl">Social Media</div><div class="fcl">Influencer Marketing</div><div class="fcl">Shopify Development</div></div>
+    <div><div class="fct">Industries</div><div class="fcl">D2C Brands</div><div class="fcl">Healthcare</div><div class="fcl">Real Estate</div><div class="fcl">Food & Beverage</div><div class="fcl">B2B & LinkedIn</div><div class="fcl">E-commerce</div></div>
+    <div><div class="fct">Company</div><div class="fcl">About Us</div><div class="fcl">Success Stories</div><div class="fcl">Pricing</div><div class="fcl">Influencer Program</div><div class="fcl">Blog</div><div class="fcl">Careers</div></div>
+  </div>
+  <div class="fbot"><span>© 2026 Mosambi Studios Pvt. Ltd. · Pune, Maharashtra</span><span>Made with ✦ in Pune</span></div>
+</div></footer>
+
+<script>
+/* CLOCK */
+function ck(){const t=new Date().toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"});document.getElementById("nav-clock").textContent=t+" IST"}
+ck();setInterval(ck,1000);
+
+/* SMOOTH SCROLL */
+function ss(s){document.querySelector(s)?.scrollIntoView({behavior:"smooth",block:"start"})}
+
+/* MOBILE */
+let mob=false;
+function tMob(){mob=!mob;document.getElementById("mob-menu").classList.toggle("open",mob)}
+
+/* SCROLL REVEAL */
+const sro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("v")})},{threshold:.07});
+document.querySelectorAll(".sr").forEach(el=>sro.observe(el));
+
+/* TICKER */
+const TK=["Video Production","UGC Shoots","Meta Ads","Google SEO","Influencer Marketing","Shopify Dev","Lead Generation","Social Media","D2C Growth","Brand Identity","App Development","Email Marketing","WhatsApp Marketing","LinkedIn B2B","PR & Media"];
+(()=>{const t=document.getElementById("ticker");const d=[...TK,...TK];t.innerHTML=d.map(i=>`<span class="ti">${i}<span class="ts">✦</span></span>`).join("")})();
+
+/* SERVICE CAROUSEL */
+const car=document.getElementById("svc-car");
+let isD=false,sX,sL;
+car.addEventListener("mousedown",e=>{isD=true;car.classList.add("drag");sX=e.pageX-car.offsetLeft;sL=car.scrollLeft});
+car.addEventListener("mouseleave",()=>{isD=false;car.classList.remove("drag")});
+car.addEventListener("mouseup",()=>{isD=false;car.classList.remove("drag")});
+car.addEventListener("mousemove",e=>{if(!isD)return;e.preventDefault();const x=e.pageX-car.offsetLeft;car.scrollLeft=sL-(x-sX)*1.6});
+car.addEventListener("scroll",()=>{const mx=car.scrollWidth-car.clientWidth;const p=mx>0?Math.round((car.scrollLeft/mx)*100):0;document.getElementById("svc-pb").style.width=Math.max(10,p)+"%"});
+function svcS(d){car.scrollBy({left:d*480,behavior:"smooth"})}
+let tx0;
+car.addEventListener("touchstart",e=>{tx0=e.touches[0].clientX},{passive:true});
+car.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>40)car.scrollBy({left:-dx*1.5,behavior:"smooth"})},{passive:true});
+
+/* INDUSTRY TABS */
+function sInd(id,btn){
+  document.querySelectorAll(".ind-panel").forEach(p=>p.classList.remove("on"));
+  document.querySelectorAll(".ind-tab").forEach(t=>t.classList.remove("on"));
+  document.getElementById("ind-"+id).classList.add("on");
+  btn.classList.add("on");
+}
+
+/* PRICE TOGGLE */
+let pQ=false;
+function tPrice(){
+  pQ=!pQ;
+  document.getElementById("ptog").classList.toggle("on",pQ);
+  document.querySelectorAll(".p-amt").forEach(el=>{
+    const m=el.dataset.m,q=el.dataset.q,per=el.querySelector(".p-period");
+    el.textContent=pQ?q:m;el.appendChild(per);
+  });
+}
+
+/* DUR TABS */
+document.addEventListener("click",e=>{
+  if(e.target.classList.contains("dtab")){
+    e.target.closest(".dtabs").querySelectorAll(".dtab").forEach(t=>t.classList.remove("on"));
+    e.target.classList.add("on");
+  }
+});
+
+/* FAQ */
+const FAQS=[
+  {q:"How quickly will we see results?",a:"SEO typically shows meaningful movement in 60–90 days. Paid ads can generate leads from day one. Content and influencer campaigns show traction in 30–45 days. We set realistic expectations and show you data every single week."},
+  {q:"Do I have to sign a long-term contract?",a:"No long-term lock-ins on Starter plans. Growth and Enterprise plans work best on 6–12 month commitments because compounding results take time — but we earn your renewal with results, not contracts."},
+  {q:"What makes you different from other Pune agencies?",a:"Three things: (1) We're fully integrated — one team for SEO, ads, social, content, and web dev. (2) We have our own 100K+ Instagram community — proof we know content. (3) We've scaled real Pune legacy brands with verifiable results."},
+  {q:"Is my ad spend included in the pricing?",a:"No — ad spend goes directly to Meta and Google from your account. We manage it, but you own it. Our fee covers strategy, creative, management, and reporting. Zero markup on ad spend — full transparency."},
+  {q:"Can you handle both marketing and website development?",a:"Yes — that's our biggest differentiator. We have full-stack developers in-house who work alongside the marketing team. Your campaigns and tech stack are always aligned. No outsourcing, no delays."},
+  {q:"We're a legacy brand. Will digital marketing actually work for us?",a:"Desai Bandhu Ambewale has been selling mangoes for 100+ years. H.V. Desai Eye Hospital has operated for 40+ years. Both now generate multi-crore digital revenue after working with us. Legacy is a superpower — we just give it a digital engine."},
+  {q:"What's your onboarding process?",a:"Week 1: Deep audit of your website, ads, SEO, social, and analytics. Week 2: Strategy presentation with 90-day plan. Week 3: Team setup and first deliverables. Week 4: Campaigns live. Most clients see first data within 30 days."},
+  {q:"Do you work with brands outside Pune?",a:"Yes — while headquartered in Pune, we manage campaigns for brands across India. Our Shopify, app dev, and digital marketing work is location-agnostic. But if you're in Pune, you can meet us in person — which our clients love."},
+];
+(()=>{const fl=document.getElementById("faq-list");fl.innerHTML=FAQS.map((f,i)=>`<div class="faq-item" id="fq${i}"><div class="faq-q" onclick="tFAQ(${i})"><span class="faq-qt">${f.q}</span><div class="faq-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-body"><div class="faq-ans">${f.a}</div></div></div>`).join("")})();
+function tFAQ(i){const el=document.getElementById("fq"+i);const was=el.classList.contains("open");document.querySelectorAll(".faq-item").forEach(x=>x.classList.remove("open"));if(!was)el.classList.add("open")}
+
+/* CURSOR GLOW */
+if(window.innerWidth>900){const cg=document.getElementById("cg");document.addEventListener("mousemove",e=>{cg.style.opacity="1";cg.style.left=e.clientX+"px";cg.style.top=e.clientY+"px"},{passive:true});document.addEventListener("mouseleave",()=>{cg.style.opacity="0"})}
+
+/* NAV SHRINK */
+window.addEventListener("scroll",()=>{const nav=document.getElementById("nav");if(window.scrollY>80){nav.style.maxWidth="1000px";nav.style.padding="6px 6px 6px 18px"}else{nav.style.maxWidth="1140px";nav.style.padding="8px 8px 8px 22px"}},{passive:true});
+
+/* TIMELINE RESPONSIVE */
+if(window.innerWidth<=860)document.getElementById("tl-layout").style.gridTemplateColumns="1fr";
+window.addEventListener("resize",()=>{const tl=document.getElementById("tl-layout");if(tl)tl.style.gridTemplateColumns=window.innerWidth<=860?"1fr":"1fr 1.2fr"});
+</script>
+</body>
+</html>
